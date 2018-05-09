@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface VehiculoDAOInterface {
 	public void VehiculoNuevo(VehiculoDTO vehiculo);
-	public List<VehiculoDTO> leeVehiculo();
-	public VehiculoDTO BuscarVehiculo(int matricula);
+	public List<VehiculoDTO> listaVehiculo();
+	public VehiculoDTO BuscarVehiculo(String matricula, int parkingid);
 }

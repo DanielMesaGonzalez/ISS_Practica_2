@@ -1,14 +1,16 @@
 package org.Practica2.ServicioREST;
 
+import java.util.Date;
+
 public class VehiculoDTO {
 
 	int Registro;
 	int ParkingID;
 	String Matricula;
-	int TimeStamp;   //Revisar porque es formato fecha
+	Date TimeStamp;   
 	
 	
-	public VehiculoDTO(int registro, int parkingID, String matricula, int timeStamp) {
+	public VehiculoDTO(int registro, int parkingID, String matricula, Date timeStamp) {
 		this.Registro = registro;
 		this.ParkingID = parkingID;
 		this.Matricula = matricula;
@@ -16,11 +18,20 @@ public class VehiculoDTO {
 	}
 	
 	
+	
+	public VehiculoDTO(int parkingID, String matricula, Date timeStamp) {
+		ParkingID = parkingID;
+		Matricula = matricula;
+		TimeStamp = timeStamp;
+	}
+
+
+
 	public VehiculoDTO() {
 		Registro=0;
 		ParkingID=0;
 		Matricula="";
-		TimeStamp=0;
+		TimeStamp=null;
 	}
 
 
@@ -42,10 +53,10 @@ public class VehiculoDTO {
 	public void setMatricula(String matricula) {
 		Matricula = matricula;
 	}
-	public int getTimeStamp() {
+	public Date getTimeStamp() {
 		return TimeStamp;
 	}
-	public void setTimeStamp(int timeStamp) {
+	public void setTimeStamp(Date timeStamp) {
 		TimeStamp = timeStamp;
 	}
 	

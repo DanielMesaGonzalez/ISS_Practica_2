@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class VehiculosDAO implements VehiculoDAOInterface {
+public class VehiculoDAO implements VehiculoDAOInterface {
 
 	private JdbcTemplate jdbcTemplate;
 		
@@ -31,7 +31,7 @@ public class VehiculosDAO implements VehiculoDAOInterface {
 		this.jdbcTemplate.update(sql,parametros);
 	}
 	@Override
-	public List<VehiculoDTO> leeVehiculo(){
+	public List<VehiculoDTO> listaVehiculo(){
 		String sql= "select * from vehiculos";
 		VehiculoMapper mapper= new VehiculoMapper();
 		@SuppressWarnings("unchecked")
@@ -41,9 +41,9 @@ public class VehiculosDAO implements VehiculoDAOInterface {
 	}
 	
 	@Override
-	public VehiculoDTO BuscarVehiculo(int matricula) {
-		String sql = "select * from vehiculos where matricula = ?";
-		Object[] parametros = {matricula};   //Array de objetos
+	public VehiculoDTO BuscarVehiculo(String matricula, int parkingid) {
+		String sql = "select * from vehiculos where matricula = ? and parkingid = ?";
+		Object[] parametros = {matricula,parkingid};   //Array de objetos
 		VehiculoMapper mapper = new VehiculoMapper();
 		List<VehiculoDTO> vehiculo = this.jdbcTemplate.query(sql, parametros, mapper);
 		if (vehiculo.isEmpty()) return null;

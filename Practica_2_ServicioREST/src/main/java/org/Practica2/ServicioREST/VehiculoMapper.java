@@ -12,7 +12,7 @@ public class VehiculoMapper implements RowMapper<VehiculoDTO>{
 	     vehiculo.setRegistro(rs.getInt("Registro"));
 	     vehiculo.setParkingID(rs.getInt("ParkingID"));
 	     vehiculo.setMatricula(rs.getString("Matricula"));
-	     vehiculo.setTimeStamp(rs.getInt("TimeStamp"));
+	     vehiculo.setTimeStamp(rs.getDate("TimeStamp"));
 
 	return vehiculo;
 	}
