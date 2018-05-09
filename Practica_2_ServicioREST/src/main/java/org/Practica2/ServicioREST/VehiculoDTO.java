@@ -1,6 +1,6 @@
 package org.Practica2.ServicioREST;
 
-public class VehiculosDTO {
+public class VehiculoDTO {
 
 	int Registro;
 	int ParkingID;
@@ -8,14 +8,22 @@ public class VehiculosDTO {
 	int TimeStamp;   //Revisar porque es formato fecha
 	
 	
-	public VehiculosDTO(int registro, int parkingID, String matricula, int timeStamp) {
-		super();
-		Registro = registro;
-		ParkingID = parkingID;
-		Matricula = matricula;
-		TimeStamp = timeStamp;
+	public VehiculoDTO(int registro, int parkingID, String matricula, int timeStamp) {
+		this.Registro = registro;
+		this.ParkingID = parkingID;
+		this.Matricula = matricula;
+		this.TimeStamp = timeStamp;
 	}
 	
+	
+	public VehiculoDTO() {
+		Registro=0;
+		ParkingID=0;
+		Matricula="";
+		TimeStamp=0;
+	}
+
+
 	public int getRegistro() {
 		return Registro;
 	}
