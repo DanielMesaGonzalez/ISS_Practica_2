@@ -30,6 +30,7 @@ public class VehiculoDAO implements VehiculoDAOInterface {
 		Object[ ] parametros = {vehiculo.getRegistro(), vehiculo.getParkingID(), vehiculo.getMatricula(), vehiculo.getTimeStamp()};
 		this.jdbcTemplate.update(sql,parametros);
 	}
+    
 	@Override
 	public List<VehiculoDTO> listaVehiculo(){
 		String sql= "select * from vehiculos";
