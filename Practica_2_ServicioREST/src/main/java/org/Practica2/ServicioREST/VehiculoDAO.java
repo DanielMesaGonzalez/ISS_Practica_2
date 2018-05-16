@@ -1,5 +1,7 @@
 package org.Practica2.ServicioREST;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -27,7 +29,7 @@ public class VehiculoDAO implements VehiculoDAOInterface {
     @Override
 	public void VehiculoNuevo(VehiculoDTO vehiculo) {
     	String sql = "insert into vehiculos values(?,?,?,?)";
-		Object[ ] parametros = {vehiculo.getRegistro(), vehiculo.getParkingID(), vehiculo.getMatricula(), vehiculo.getTimeStamp()};
+		Object[ ] parametros = {vehiculo.getRegistro(), vehiculo.getParkingId(), vehiculo.getMatricula(), vehiculo.getTimeStamp()};
 		this.jdbcTemplate.update(sql,parametros);
 	}
     
@@ -50,5 +52,22 @@ public class VehiculoDAO implements VehiculoDAOInterface {
 		if (vehiculo.isEmpty()) return null;
 		else return vehiculo.get(0);
 		
+	}
+	
+	public Timestamp obtenerTimestamp() {
+		Timestamp timestamp;
+		java.util.Date utilDate = new java.util.Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(utilDate);
+		cal.set(Calendar.MILLISECOND, 0);
+		timestamp=new java.sql.Timestamp(utilDate.getTime());
+		return timestamp;
+	}
+	@Override
+	public void updateVehiculo(String matricula, int parkingid) {
+		String sql = "update vehiculos set timestamp=? where matricula = ? and parkingid = ?";
+		Timestamp timestamp=obtenerTimestamp();
+		Object[] parametros = {timestamp,matricula,parkingid};   //Array de objetos
+		this.jdbcTemplate.update(sql, parametros);
 	}
 }

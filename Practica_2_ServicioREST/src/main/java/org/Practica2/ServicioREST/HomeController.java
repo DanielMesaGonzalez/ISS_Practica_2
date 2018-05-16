@@ -2,8 +2,10 @@ package org.Practica2.ServicioREST;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Handles requests for the application home page.
@@ -42,42 +45,50 @@ public class HomeController {
 		return "testparking";
 	}
 	
-	@RequestMapping(value ="/registroMatricula", method = RequestMethod.POST)
-	public ResponseEntity<VehiculoDTO> nuevo(@RequestBody VehiculoDTO vehiculo)  {
-		int parkingId= vehiculo.getParkingID();
+	@RequestMapping(value ="registroMatricula/enviar", method = RequestMethod.POST)
+	public ResponseEntity<VehiculoDTO> nuevo(@RequestBody VehiculoDTO vehiculo,Model model)  {
+		int parkingId= vehiculo.getParkingId();
 		String matricula=vehiculo.getMatricula();
-		Date timestamp= new Date();
-		ResponseEntity<VehiculoDTO> respuestaHTTP=new ResponseEntity<VehiculoDTO>(vehiculo, HttpStatus.FOUND);
+		Timestamp timestamp=dao.obtenerTimestamp();
+		vehiculo.setTimeStamp(timestamp);
 		
-		if (dao.BuscarVehiculo(vehiculo.getMatricula(), vehiculo.getParkingID())==null) {
+		ResponseEntity<VehiculoDTO> respuestaHTTP=new ResponseEntity<VehiculoDTO>(vehiculo, HttpStatus.OK);
+		
+		if (dao.BuscarVehiculo(matricula,parkingId)==null) {
 			        			    
 			    dao.VehiculoNuevo(vehiculo);
 			    respuestaHTTP=new ResponseEntity<VehiculoDTO>(vehiculo, HttpStatus.CREATED);
 			
-		}
-		
-		
-	/*	else if (dao.BuscarVehiculo(matricula, parkingId).getParkingID()==1) {
-			return "testcoste";
-		}
-		*/
-/*		if (dao.BuscarVehiculo(matricula, parkingId).getParkingID()==0) {    //si recibimos un "0" para la barrera de entrada 
-			respuesta="Barrera de entrada";
-		}
-		else   
-			respuesta="Barrera de salida";  */         //En caso contrario (recibimos un 1) estamos en la barrera de salida
-		
-		
+		}else
+			dao.updateVehiculo(matricula, parkingId);
 		return respuestaHTTP;
 	
 		}
 	
-	@RequestMapping(value ="/coste", method = RequestMethod.GET)
-	public String comprueba(HttpServletRequest request, Locale locale, Model model) {
+	@RequestMapping(value ="/coste/{matricula}", method = RequestMethod.GET)
+	public @ResponseBody String coste(@PathVariable(value="matricula") String matricula, Model model) {
 	
-		return "testcoste";
+	String precio="";
+	if(dao.BuscarVehiculo(matricula, 0)!=null && dao.BuscarVehiculo(matricula, 1)!=null) {
+	Timestamp timestampEntrada=dao.BuscarVehiculo(matricula,0).getTimeStamp();
+	Timestamp timestampSalida=dao.BuscarVehiculo(matricula, 1).getTimeStamp();
+	
+	double tiempo = ((timestampSalida.getTime()-timestampEntrada.getTime())/1000)/60;
+	double tarifa= 0.05;
+	double coste= tiempo*tarifa;
+	precio=Double.toString(coste);
+		return precio;
+	}else
+		return precio;
+	
 	}
 	
+	@RequestMapping(value ="/pago", method = RequestMethod.GET)
+	public String comprueba(Model model) {
+	
+		
+		return "testcoste";
+	}
 	
 	
 }

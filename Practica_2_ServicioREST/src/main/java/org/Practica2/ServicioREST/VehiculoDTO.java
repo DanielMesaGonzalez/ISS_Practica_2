@@ -1,64 +1,57 @@
 package org.Practica2.ServicioREST;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class VehiculoDTO {
 
-	int Registro;
-	int ParkingID;
-	String Matricula;
-	Date TimeStamp;   
-	
-	
-	public VehiculoDTO(int registro, int parkingID, String matricula, Date timeStamp) {
-		this.Registro = registro;
-		this.ParkingID = parkingID;
-		this.Matricula = matricula;
-		this.TimeStamp = timeStamp;
-	}
+	int registro;
+	int parkingId;
+	String matricula;
+	Timestamp TimeStamp;
 	
 	
 	
-	public VehiculoDTO(int parkingID, String matricula, Date timeStamp) {
-		ParkingID = parkingID;
-		Matricula = matricula;
+	public VehiculoDTO(int parkingId, String matricula, Timestamp timeStamp) {
+		super();
+		this.parkingId = parkingId;
+		this.matricula = matricula;
 		TimeStamp = timeStamp;
 	}
-
-
-
 	public VehiculoDTO() {
-		Registro=0;
-		ParkingID=0;
-		Matricula="";
-		TimeStamp=null;
+		super();
 	}
-
-
+	public VehiculoDTO(int registro, int parkingId, String matricula, Timestamp timeStamp) {
+		super();
+		this.registro = registro;
+		this.parkingId = parkingId;
+		this.matricula = matricula;
+		TimeStamp = timeStamp;
+	}
 	public int getRegistro() {
-		return Registro;
+		return registro;
 	}
 	public void setRegistro(int registro) {
-		Registro = registro;
+		this.registro = registro;
 	}
-	public int getParkingID() {
-		return ParkingID;
+	public int getParkingId() {
+		return parkingId;
 	}
-	public void setParkingID(int parkingID) {
-		ParkingID = parkingID;
+	public void setParkingId(int parkingId) {
+		this.parkingId = parkingId;
 	}
 	public String getMatricula() {
-		return Matricula;
+		return matricula;
 	}
 	public void setMatricula(String matricula) {
-		Matricula = matricula;
+		this.matricula = matricula;
 	}
-	public Date getTimeStamp() {
+	public Timestamp getTimeStamp() {
 		return TimeStamp;
 	}
-	public void setTimeStamp(Date timeStamp) {
+	public void setTimeStamp(Timestamp timeStamp) {
 		TimeStamp = timeStamp;
-	}
+	}   
 	
 	
 }

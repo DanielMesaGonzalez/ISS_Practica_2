@@ -11,10 +11,11 @@
    Matricula: <input type="text" name="matricula" id="matricula">
    <br><br>
    <input type="submit" value="Envia Datos"> 
+${respuesta}
 </form>
 <script type="text/javascript">
 	$('#enviar').submit(function(evento){
-		var urlrest = 'registroMatricula';
+		var urlrest = 'registroMatricula/enviar';
 		$.ajax({
 			url: urlrest,
 			type: 'POST',
@@ -26,6 +27,5 @@
 		evento.preventDefault(); //Evita que se ejecute la petición GET del form
 	})
 </script>
-
 </body>
 </html>
